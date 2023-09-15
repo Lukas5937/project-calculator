@@ -1,5 +1,5 @@
 .display {
-    width: 300px;
+    width: 280px;
     height: 30px;
     padding: 0px 8px;
     margin-bottom: 24px;
@@ -12,7 +12,7 @@
 .button-container {
     margin: 0px;
     padding: 0px;
-    width: 300px;
+    width: 280px;
     display: flex;
 }
 
@@ -31,12 +31,16 @@
 }
 
 .button {
-    height: 45px;
-    width: 45px;
+    height: 50px;
+    width: 50px;
     border-radius: 50%;
-    background-color: grey;
+    background-color: rgb(171, 204, 212);
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.button.operator {
+    background-color: rgb(169, 190, 169)
 }

@@ -2,35 +2,50 @@ let number1 = "";
 let number2 = "";
 let operator = "";
 
-function add (number1, number2) {
-    result = number1 + number2;
+function add () {
+    result = Number(number1 + number2);
+    number1 = result;
+    number2 = "";
     return display.textContent = result;
 }
 
-function subtract (number1, number2) {
-    result = number1 - number2;
+function subtract () {
+    result = Number(number1 - number2);
     return display.textContent = result;
 }
 
-function multiply (number1, number2) {
-    result = number1 * number2;
+function multiply () {
+    result = Number(number1 * number2);
     return display.textContent = result;
 }
 
-function divide (number1, number2) {
-    result = number1 / number2;
+function divide () {
+    result = Number(number1 / number2);
     return display.textContent = result;
 }
 
 function operate () {
-    if (operator === "+") 
-        {return add(number1, number2)}
-    else if (operator === "-") 
-        {return subtract(number1, number2)}
-    else if (operator === "*") 
-        {return multiply(number1, number2)}
-    else if (operator === "/") 
-        {return divide(number1, number2)};
+    console.log(number2)
+    if (operator === "+") {
+        add(number1, number2);
+        console.log(number1);
+        console.log(number2);
+    }
+    else if (operator === "-") {
+        subtract(number1, number2);
+        number1 = subtract(number1, number2);
+        number2 = "";
+    }
+    else if (operator === "*") {
+        multiply(number1, number2);
+        number1 = multiply(number1, number2);
+        number2 = "";
+    }
+    else if (operator === "/") {
+        divide(number1, number2);
+        number1 = divide(number1, number2);
+        number2 = "";
+    };
 }
 
 let display = document.querySelector(".display");
@@ -40,20 +55,43 @@ let equals = document.querySelector(".equals");
 let clear = document.querySelector(".clear");
 
 numbers.forEach(number => {number.addEventListener("click", () => {
-    let calculationNumber = display.textContent += number.textContent;
-    let numberArray = calculationNumber.split(/[.\*+-/_]/);
-    number1 = Number(numberArray[0]); 
-    number2 = Number(numberArray[1]);
+    let buttonValue = number.getAttribute("id");
+    // let numberArray = calculationNumber.split(/[.\*+-/_]/);
+    if (operator === "")  {
+        let calculationNumber = display.textContent += buttonValue;
+        number1 = Number(calculationNumber);
+    } 
+    else {
+        if (number2 === "") {
+            display.textContent = "";
+            let calculationNumber = display.textContent += buttonValue;
+            number2 = Number(calculationNumber);
+            console.log(number2);
+        }
+        else {
+            let calculationNumber = display.textContent += buttonValue;
+            number2 = Number(calculationNumber);
+            console.log(number2);
+        };
+    };
 })});
 
 operators.forEach(sign => {sign.addEventListener("click", () => {
-    display.textContent += sign.textContent;
-    operator = sign.textContent;
-    console.log(operator);
+    if (operator === "") {
+        operator = sign.textContent
+    }
+    else {
+        console.log(operator)
+        operate();
+        operator = sign.textContent;
+        console.log(number1);
+    }
 })});
 
 equals.addEventListener("click", operate);
 
-clear.addEventListener("click", () => display.textContent = "");
+clear.addEventListener("click", () => {
+    display.textContent = "";
+    operator = "";});
 
 
