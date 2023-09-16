@@ -41,6 +41,6 @@
     align-items: center;
 }
 
-.button.operator {
-    background-color: rgb(169, 190, 169)
+.button.operator, .button.equals {
+    background-color: rgb(169, 190, 169);
 }

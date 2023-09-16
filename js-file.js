@@ -1,6 +1,8 @@
 let number1 = "";
 let number2 = "";
 let operator = "";
+let decimalOn = false;
+let calculationNumber = ""
 
 function add () {
     result = Number(number1 + number2);
@@ -28,8 +30,6 @@ function operate () {
     console.log(number2)
     if (operator === "+") {
         add(number1, number2);
-        console.log(number1);
-        console.log(number2);
     }
     else if (operator === "-") {
         subtract(number1, number2);
@@ -53,25 +53,46 @@ let numbers = document.querySelectorAll(".number");
 let operators = document.querySelectorAll(".operator");
 let equals = document.querySelector(".equals");
 let clear = document.querySelector(".clear");
+let decimal = document.querySelector(".decimal");
+
+decimal.addEventListener("click", () => decimalOn = true);
 
 numbers.forEach(number => {number.addEventListener("click", () => {
+    console.log(decimalOn);
     let buttonValue = number.getAttribute("id");
     // let numberArray = calculationNumber.split(/[.\*+-/_]/);
     if (operator === "")  {
-        let calculationNumber = display.textContent += buttonValue;
+        if (decimalOn && !(calculationNumber.includes("."))) {
+            calculationNumber = display.textContent += `.${buttonValue}`;
+            decimalOn = false;
+        }
+        else {calculationNumber = display.textContent += buttonValue;}
         number1 = Number(calculationNumber);
     } 
     else {
         if (number2 === "") {
             display.textContent = "";
-            let calculationNumber = display.textContent += buttonValue;
-            number2 = Number(calculationNumber);
-            console.log(number2);
+            calculationNumber = "";
+            if (decimalOn && !(calculationNumber.includes("."))) {
+                calculationNumber = display.textContent += `.${buttonValue}`;
+                number2 = Number(calculationNumber);
+                decimalOn = false;
+            }
+            else {
+                calculationNumber = display.textContent += buttonValue;
+                number2 = Number(calculationNumber);
+            }
         }
         else {
-            let calculationNumber = display.textContent += buttonValue;
-            number2 = Number(calculationNumber);
-            console.log(number2);
+            if (decimalOn && !(calculationNumber.includes("."))) {
+                calculationNumber = display.textContent += `.${buttonValue}`;
+                number2 = Number(calculationNumber);
+                decimalOn = false;
+            }
+            else {
+                calculationNumber = display.textContent += buttonValue;
+                number2 = Number(calculationNumber);
+            }
         };
     };
 })});
@@ -81,10 +102,8 @@ operators.forEach(sign => {sign.addEventListener("click", () => {
         operator = sign.textContent
     }
     else {
-        console.log(operator)
         operate();
         operator = sign.textContent;
-        console.log(number1);
     }
 })});
 
