@@ -27,7 +27,6 @@ function divide () {
 }
 
 function operate () {
-    console.log(number2)
     if (operator === "+") {
         add(number1, number2);
     }
@@ -58,7 +57,6 @@ let decimal = document.querySelector(".decimal");
 decimal.addEventListener("click", () => decimalOn = true);
 
 numbers.forEach(number => {number.addEventListener("click", () => {
-    console.log(decimalOn);
     let buttonValue = number.getAttribute("id");
     // let numberArray = calculationNumber.split(/[.\*+-/_]/);
     if (operator === "")  {
