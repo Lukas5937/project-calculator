@@ -56,42 +56,30 @@ let decimal = document.querySelector(".decimal");
 
 decimal.addEventListener("click", () => decimalOn = true);
 
+function checkDecimal(buttonValue) {
+    if (decimalOn && !(calculationNumber.includes("."))) {
+        calculationNumber = display.textContent += `.${buttonValue}`;
+        decimalOn = false;
+    }
+    else {calculationNumber = display.textContent += buttonValue;}
+}
+
 numbers.forEach(number => {number.addEventListener("click", () => {
     let buttonValue = number.getAttribute("id");
-    // let numberArray = calculationNumber.split(/[.\*+-/_]/);
     if (operator === "")  {
-        if (decimalOn && !(calculationNumber.includes("."))) {
-            calculationNumber = display.textContent += `.${buttonValue}`;
-            decimalOn = false;
-        }
-        else {calculationNumber = display.textContent += buttonValue;}
+        checkDecimal(buttonValue);
         number1 = Number(calculationNumber);
     } 
     else {
         if (number2 === "") {
             display.textContent = "";
             calculationNumber = "";
-            if (decimalOn && !(calculationNumber.includes("."))) {
-                calculationNumber = display.textContent += `.${buttonValue}`;
-                number2 = Number(calculationNumber);
-                decimalOn = false;
-            }
-            else {
-                calculationNumber = display.textContent += buttonValue;
-                number2 = Number(calculationNumber);
-            }
+            checkDecimal(buttonValue);
         }
         else {
-            if (decimalOn && !(calculationNumber.includes("."))) {
-                calculationNumber = display.textContent += `.${buttonValue}`;
-                number2 = Number(calculationNumber);
-                decimalOn = false;
-            }
-            else {
-                calculationNumber = display.textContent += buttonValue;
-                number2 = Number(calculationNumber);
-            }
+            checkDecimal(buttonValue);
         };
+    number2 = Number(calculationNumber);
     };
 })});
 
