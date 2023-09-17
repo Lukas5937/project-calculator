@@ -62,10 +62,9 @@ function checkDecimal(buttonValue) {
         decimalOn = false;
     }
     else {calculationNumber = display.textContent += buttonValue;}
-}
+};
 
-numbers.forEach(number => {number.addEventListener("click", () => {
-    let buttonValue = number.getAttribute("id");
+function checkOperator(buttonValue) {
     if (operator === "")  {
         checkDecimal(buttonValue);
         number1 = Number(calculationNumber);
@@ -81,6 +80,11 @@ numbers.forEach(number => {number.addEventListener("click", () => {
         };
     number2 = Number(calculationNumber);
     };
+};
+
+numbers.forEach(number => {number.addEventListener("click", () => {
+    let buttonValue = number.getAttribute("id");
+    checkOperator(buttonValue);
 })});
 
 operators.forEach(sign => {sign.addEventListener("click", () => {
@@ -98,5 +102,23 @@ equals.addEventListener("click", operate);
 clear.addEventListener("click", () => {
     display.textContent = "";
     operator = "";});
+
+
+document.addEventListener("keydown", (e) => {
+    console.log(e.key);
+    if (["1","2","3","4","5","6","7","8","9"].includes(e.key)) {
+        let buttonValue = e.key;
+        checkOperator(buttonValue);
+    }
+    else if (["+", "-", "*", "/"].includes(e.key)) {
+        operator = e.key;
+    }
+    else if (e.key === "=") {
+        operate();
+    }
+    else if (e.key ===".") {
+        decimalOn = true;
+    }
+});
 
 
